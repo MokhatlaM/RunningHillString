@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Nav, NavItem, NavbarBrand } from "reactstrap";
-import { navlinks } from "../../Data/navlinks";
+import { navlinks } from "../../Data/links";
 import "./Topbar.css";
 import { Link } from "react-router-dom";
 import { FaBeer } from "react-icons/fa";

@@ -1,0 +1,54 @@
+.playground {
+  height: 72%;
+  width: 100%;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.SelectScreen {
+  /* background-color: bisque; */
+  padding: 5%;
+  height: 100%;
+  width: 50%;
+
+  justify-content: center;
+  align-items: center;
+  color: #000;
+}
+
+.SelectScreen .card {
+  display: flex;
+
+  margin-bottom: 10%;
+}
+
+.HistoryScreen {
+  /* background-color: blueviolet; */
+  padding: 5%;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  color: #000;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .playground {
+    display: flex;
+    flex-direction: column;
+  }
+  .HistoryScreen {
+    width: 100vw;
+    height: 50%;
+  }
+  .SelectScreen {
+    width: 100vw;
+    height: 50%;
+  }
+}
