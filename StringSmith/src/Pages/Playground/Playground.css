@@ -8,14 +8,15 @@
   align-items: center;
   padding: 0;
   margin: 0;
+  padding: 2%;
 }
 
 .SelectScreen {
   /* background-color: bisque; */
-  padding: 5%;
+  padding: 2%;
   height: 100%;
   width: 50%;
-
+  box-shadow: 10px 0px 9px rgba(0, 0, 0, 0.1);
   justify-content: center;
   align-items: center;
   color: #000;
@@ -24,26 +25,38 @@
 .SelectScreen .card {
   display: flex;
 
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
-
-.HistoryScreen {
+.header {
+  background-color: transparent !important;
+  border-bottom: none !important;
+  font-weight: 600;
+}
+.ResultScreen {
   /* background-color: blueviolet; */
-  padding: 5%;
+  padding: 2%;
   height: 100%;
   width: 50%;
   display: flex;
+  flex-direction: column;
+  gap: 3rem;
   justify-content: center;
   color: #000;
+  margin-right: 2%;
   align-items: center;
+  border-radius: 4px;
+
+  /* box-shadow: 10px 0px 9px rgba(0, 0, 0, 0.2); */
 }
 
 @media screen and (max-width: 768px) {
   .playground {
+    margin-top: 25%;
     display: flex;
     flex-direction: column;
+    gap: 9rem;
   }
-  .HistoryScreen {
+  .ResultScreen {
     width: 100vw;
     height: 50%;
   }

@@ -1,8 +1,10 @@
+import { Input } from "reactstrap";
+
 export interface ICardProps {
   id: number;
   element: string;
   header: string;
-  content: string;
+  //   content: JSX.Element;
   note: string;
 }
 
@@ -13,19 +15,23 @@ export interface IButtonProps {
   color: string;
   title: string;
 }
-export const grid: (ICardProps | IButtonProps)[] = [
+
+export interface IWordTypeProps {
+  _id: number;
+  WordType: string;
+}
+
+export const selectgrid: (ICardProps | IButtonProps)[] = [
   {
     id: 1,
     element: "Card",
     header: "SELECT ANY WORD TYPE TO START CONSTRUCTING A SENTENCE",
-    content: "Step 1",
     note: "Note: You may only select one word type and proceed to the next section.",
   },
   {
     id: 2,
     element: "Card",
     header: "NOW, SELECT ANY WORD TO GET YOUR SENTENCE",
-    content: "step 2",
     note: "Note: Final step",
   },
   {
@@ -36,3 +42,16 @@ export const grid: (ICardProps | IButtonProps)[] = [
     color: "blue",
   },
 ];
+
+// export const resultsgrid = [
+//     {
+//         id: 1,
+//         element: "Label",
+//         title:""
+//     },
+//   {
+//     id: 2,
+//     element: "paragraph",
+//     content: null,
+//   },
+// ];
