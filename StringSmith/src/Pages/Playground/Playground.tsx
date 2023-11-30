@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Playground.css";
 import {
   Button,
@@ -20,15 +20,42 @@ import { getWordTypes } from "../../Services/API/WordtypesAPI";
 import { getWords } from "../../Services/API/WordsAPI";
 
 interface IWordTypes {
-  _id: Number;
+  id: Number;
   WordType: String;
 }
 interface IWords {
-  _id: Number;
-  word: string;
-  wordTypeId: Number;
+  id: Number;
+  WordTypeId: Number;
+  Word: string;
 }
+
 const Playground = () => {
+  const [typeSelect, setTypeSelect] = useState("");
+  const [selectedWord, setSelectedWord] = useState<IWords[]>([]);
+  const [generatedSentence, setGeneratedSentence] = useState<string>("");
+  const generateRandomSentence = () => {
+    if (selectedWord.length === 0) {
+      setGeneratedSentence("No word selected!");
+    } else {
+      const randomIndex = Math.floor(Math.random() * selectedWord.length);
+      const word = selectedWord[randomIndex].Word;
+      setGeneratedSentence(`The selected word is: ${word}`);
+    }
+  };
+  const handleTypeSelection = (e) => {
+    console.log("Type select hit");
+    setTypeSelect(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleWordSelection = (e) => {
+    console.log("word select hit");
+    const selectedWordId = e.target.value;
+    const word = Words?.find((word) => word.id === Number(selectedWordId));
+    setSelectedWord(word ? [word] : []);
+    console.log(word);
+  };
+
   const {
     isError: isErrorTypes,
     isLoading: isLoadingTypes,
@@ -47,42 +74,63 @@ const Playground = () => {
     queryFn: getWords,
   });
 
+  const handleSubmit = (e) => {
+    console.log("--------------");
+    console.log("Button hit");
+    console.log("---------------");
+    e.preventDefault();
+    generateRandomSentence();
+
+    e.preventDefault();
+  };
+
   return (
     <div className="playground">
       <div className="SelectScreen">
-        {selectgrid.map((component) => {
-          const cardItem = component as ICardProps;
-          const buttonItem = component as IButtonProps;
-          return component.element == "Card" ? (
-            <Card key={component.id}>
-              <CardHeader className="header">{cardItem.header}</CardHeader>
-              <CardBody>
-                <Form>
+        <Form onSubmit={handleSubmit}>
+          {selectgrid.map((component) => {
+            const cardItem = component as ICardProps;
+            const buttonItem = component as IButtonProps;
+
+            return component.element == "Card" ? (
+              <Card key={component.id}>
+                <CardHeader className="header">{cardItem.header}</CardHeader>
+                <CardBody>
                   <FormGroup>
                     {cardItem.id == 1 ? (
-                      <Input type="select">
+                      <Input
+                        type="select"
+                        value={typeSelect}
+                        onChange={handleTypeSelection}
+                      >
+                        <option>Select word type...</option>
                         {WordTypes?.map((WordType) => {
                           return <option>{WordType.WordType}</option>;
                         })}
                       </Input>
                     ) : (
-                      <Input type="select">
+                      <Input
+                        type="select"
+                        value={selectedWord}
+                        onChange={handleWordSelection}
+                      >
+                        <option>Select word...</option>
                         {Words?.map((word) => {
-                          return <option>{word.word}</option>;
+                          return <option>{word.Word}</option>;
                         })}
                       </Input>
                     )}
                   </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>{cardItem.note}</CardFooter>
-            </Card>
-          ) : component.element == "Button" ? (
-            <Button className={buttonItem.title} type={buttonItem.type}>
-              {buttonItem.title}
-            </Button>
-          ) : null;
-        })}
+                </CardBody>
+                <CardFooter>{cardItem.note}</CardFooter>
+              </Card>
+            ) : component.element == "Button" ? (
+              <Button className={buttonItem.title} type={buttonItem.type}>
+                {buttonItem.title}
+              </Button>
+            ) : null;
+          })}
+        </Form>
       </div>
       <div className="ResultScreen">
         <Card style={{ width: "100%" }}>
@@ -116,7 +164,7 @@ const Playground = () => {
                   width: "100%",
                 }}
               >
-                Love will hurt more than anything...
+                {generatedSentence}
               </p>
             </div>
           </CardBody>
